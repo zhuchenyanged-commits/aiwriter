@@ -1,0 +1,3 @@
+[build]
+# 不在构建时访问这些环境变量
+secret = ["GPT5_API_KEY", "ANTHROPIC_API_KEY", "GOOGLE_API_KEY", "GEMINI_API_KEY"]
