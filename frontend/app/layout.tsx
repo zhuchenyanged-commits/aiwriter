@@ -11,10 +11,21 @@ export const metadata: Metadata = {
   description: '基于 Claude 和 Gemini 的下一代 AI 写作系统，支持多源调研和 KAFKA 风格配图生成',
   keywords: ['AI写作', 'Claude', 'Gemini', 'Next.js', '作品展示'],
   authors: [{ name: 'AI Writer', url: 'https://aiwriter.tech' }],
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+  },
+  themeColor: '#0a0a0f',
   openGraph: {
     title: 'AI Writer - 智能写作系统',
     description: '基于 AI 的智能写作系统',
     type: 'website',
+    locale: 'zh_CN',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 
