@@ -1,0 +1,43 @@
+# 开发工具
+.DS_Store
+*.swp
+*.swo
+*~
+
+# 环境变量
+.env
+.env.local
+.env.production.local
+
+# 依赖
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+
+# 构建输出
+.next/
+out/
+dist/
+build/
+*.egg-info/
+
+# 数据库
+*.db
+*.sqlite
+*.sqlite3
+
+# 日志
+*.log
+logs/
+
+# 输出
+outputs/
+*.pdf
+*.pptx
+*.docx
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
