@@ -34,15 +34,21 @@ class AIWriter:
         from .gpt5_writer import GPT5Writer
         self.writer = GPT5Writer()
 
-        # Gemini API（用于图片生成）
+        # Gemini API（用于图片生成）- 可选功能
+        self.image_generator = None
         if GEMINI_AVAILABLE:
-            genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-            try:
-                self.image_generator = GeminiClient()
-            except:
-                self.image_generator = None
+            gemini_api_key = os.getenv("GEMINI_API_KEY")
+            if gemini_api_key:
+                try:
+                    genai.configure(api_key=gemini_api_key)
+                    self.image_generator = GeminiClient()
+                    print("✅ Gemini 图片生成已启用")
+                except Exception as e:
+                    print(f"⚠️  Gemini 初始化失败: {e}")
+            else:
+                print("⚠️  GEMINI_API_KEY 未设置，图片生成功能将使用占位图")
         else:
-            self.image_generator = None
+            print("⚠️  Gemini 模块未导入，图片生成功能将使用占位图")
 
     async def research(self, topic: str) -> Dict[str, Any]:
         """

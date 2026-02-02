@@ -17,9 +17,13 @@ class GPT5Writer:
     def __init__(self):
         """初始化 GPT5"""
         self.api_key = os.getenv("GPT5_API_KEY")
+        if not self.api_key:
+            print("⚠️  GPT5_API_KEY 未设置，API 调用将失败")
+            print("   请在 Railway 上添加 GPT5_API_KEY 环境变量")
         self.api_base = "https://api.apicore.ai/v1"
         self.model = "gpt-5"
-        print("✅ 使用 GPT5 (APICore) 生成文章")
+        if self.api_key:
+            print("✅ 使用 GPT5 (APICore) 生成文章")
 
     async def generate_article(
         self,
