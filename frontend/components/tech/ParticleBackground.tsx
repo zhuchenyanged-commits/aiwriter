@@ -12,8 +12,12 @@ export default function ParticleBackground() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
+    // TypeScript 非 null 断言
+    const context = ctx
+    const canvasEl = canvas
+
+    canvasEl.width = window.innerWidth
+    canvasEl.height = window.innerHeight
 
     const particles: Array<{
       x: number
@@ -27,8 +31,8 @@ export default function ParticleBackground() {
     // 创建粒子
     for (let i = 0; i < 50; i++) {
       particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
+        x: Math.random() * canvasEl.width,
+        y: Math.random() * canvasEl.height,
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5,
         size: Math.random() * 2 + 1,
@@ -37,7 +41,7 @@ export default function ParticleBackground() {
     }
 
     function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      context.clearRect(0, 0, canvasEl.width, canvasEl.height)
 
       particles.forEach((particle, i) => {
         // 更新位置
@@ -45,14 +49,14 @@ export default function ParticleBackground() {
         particle.y += particle.vy
 
         // 边界检查
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1
+        if (particle.x < 0 || particle.x > canvasEl.width) particle.vx *= -1
+        if (particle.y < 0 || particle.y > canvasEl.height) particle.vy *= -1
 
         // 绘制粒子
-        ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(0, 245, 255, ${particle.opacity})`
-        ctx.fill()
+        context.beginPath()
+        context.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
+        context.fillStyle = `rgba(0, 245, 255, ${particle.opacity})`
+        context.fill()
 
         // 绘制连线
         particles.slice(i + 1).forEach((otherParticle) => {
@@ -61,11 +65,11 @@ export default function ParticleBackground() {
           const distance = Math.sqrt(dx * dx + dy * dy)
 
           if (distance < 150) {
-            ctx.beginPath()
-            ctx.moveTo(particle.x, particle.y)
-            ctx.lineTo(otherParticle.x, otherParticle.y)
-            ctx.strokeStyle = `rgba(0, 245, 255, ${0.1 * (1 - distance / 150)})`
-            ctx.stroke()
+            context.beginPath()
+            context.moveTo(particle.x, particle.y)
+            context.lineTo(otherParticle.x, otherParticle.y)
+            context.strokeStyle = `rgba(0, 245, 255, ${0.1 * (1 - distance / 150)})`
+            context.stroke()
           }
         })
       })
@@ -76,8 +80,8 @@ export default function ParticleBackground() {
     animate()
 
     const handleResize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
+      canvasEl.width = window.innerWidth
+      canvasEl.height = window.innerHeight
     }
 
     window.addEventListener('resize', handleResize)
